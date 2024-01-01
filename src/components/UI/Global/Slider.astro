@@ -1,0 +1,60 @@
+---
+interface Props {
+    
+}
+import BlogItem from './Blog/BlogItem.astro';
+import { contentfulClient, SliderX } from '../../../lib/contentful';
+
+
+const entries = await contentfulClient.getEntries<SliderX>({
+    content_type: "slider",
+  });
+  
+  const sliderItem = entries.items.map((item) => {
+    const { image1, image2, image3, image4 } = item.fields;
+    return {
+        image1,
+        image2,
+        image3,
+        image4
+    };
+  });
+
+
+
+---
+
+
+
+<div class="col-lg-8  mb-5 mb-lg-0">
+    <article class="row mb-5">
+        <div class="col-12">
+            {sliderItem.slice(0, 7).map((images) => {
+                // Check if item and its fields are defined before accessing them
+                if (images) {
+                  return (
+                  <div class="post-slider">
+                    <img loading="lazy" src={images.image1.fields.file.url} class="img-fluid" alt="post-thumb">
+                    <img loading="lazy" src={images.image2.fields.file.url} class="img-fluid" alt="post-thumb">
+                    <img loading="lazy" src={images.image3.fields.file.url} class="img-fluid" alt="post-thumb">
+                    <img loading="lazy" src={images.image4.fields.file.url} class="img-fluid" alt="post-thumb">
+                    </div>
+                  );
+                } else {
+                  // Handle the case where item or its fields are undefined
+                  return null;
+                }
+              })}
+           
+        </div>
+        <div class="col-12 mx-auto">
+            <h5><a class="post-title" href="/about-institution/">এক ঝলকে ক্যাম্পাস</a></h5>
+            <ul class="list-inline post-meta mb-4">
+               
+            </ul>
+           <a href="/about-institution/about-school/" class="btn btn-outline-primary">স্কুল সম্পর্কে আরও</a>
+        </div>
+    </article>
+ <BlogItem/>
+
+</div>

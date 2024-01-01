@@ -1,0 +1,119 @@
+---
+import { contentfulClient } from "../../lib/contentful";
+import type { NoticeItem, TeacherItem } from "../../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+
+import Header from '../../components/UI/Global/Header.astro'
+import Footer from '../../components/UI/Global/Footer.astro'
+
+
+const entries = await contentfulClient.getEntries<TeacherItem>({
+  content_type: "teacher",
+});
+
+const teacher = entries.items.map((item) => {
+  const { firstName, lastName, photo, email, phone, subject } = item.fields;
+  return {
+    photo,
+    firstName,
+    lastName,
+    email,
+    phone,
+    subject
+  };
+});
+
+const {photo, firstName, lastName, email, phone, subject} = Astro.props;
+
+---
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html lang="en-us">
+
+<head>
+	<base href="https://bbhss.vercel.app" target="_blank"/>
+   <meta charset="utf-8">
+   <title>Teachers</title>
+
+   <!-- mobile responsive meta -->
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+   <meta name="description" content="This is meta description">
+   <meta name="author" content="Themefisher">
+
+   <!-- plugins -->
+   <link rel="preload" href="https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFWJ0bbck.woff2" style="font-display: optional;">
+   <link rel="stylesheet" href="/plugins/bootstrap/bootstrap.min.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:600%7cOpen&#43;Sans&amp;display=swap" media="screen">
+
+   <link rel="stylesheet" href="/plugins/themify-icons/themify-icons.css">
+   <link rel="stylesheet" href="/plugins/slick/slick.css">
+
+   <!-- Main Stylesheet -->
+   <link rel="stylesheet" href="/css/style.css">
+
+	
+				   <!-- JS Plugins -->
+				   <script type="module" src="/plugins/jQuery/jquery.min.js"></script>
+				   <script type="module" src="/plugins/bootstrap/bootstrap.min.js"></script>
+				   <script type="module" src="/plugins/slick/slick.min.js"></script>
+				
+				   <!-- Main Script -->
+				   <script type="module" src="/js/script.js"></script>
+   <!--Favicon-->
+   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+   <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+<!-- navigation -->
+<Header/>
+<!-- /navigation -->
+
+
+<section class="section">
+	<div class="container">
+		<h4 id="notice">Teachers</h4>
+		<div class="notices note">
+<ul class="list-unstyled widget-list">
+	{teacher.slice(0, 100).map((post) => {
+		// Check if item and its fields are defined before accessing them
+		if (post && post.photo && post.firstName) {
+		  return (
+			<li class="media widget-post align-items-center">
+				<img
+				  loading="lazy"
+				  class="mr-3"
+				  src={post.photo.fields.file.url}
+				/>
+			  <div class="media-body">
+				<h5 class="h6 mb-0">
+                    {post.firstName + " " + post.lastName}
+				</h5>
+				<small>
+				  {"পদবী: " +post.subject}<br/>
+                  {"ফোন: "+ post.email} <br/>
+                 
+				</small>
+			  </div>
+			</li>
+		  );
+		} else {
+		  // Handle the case where item or its fields are undefined
+		  return null;
+		}
+	  })}
+	  </ul>
+	</div>
+	</div>
+<Footer/>
+
+</section>
+</body>
+</html>

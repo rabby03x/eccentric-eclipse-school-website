@@ -1,0 +1,53 @@
+---
+interface Props {
+    
+}
+
+import { contentfulClient, type UsefulLinks } from "../../../lib/contentful";
+import { UsefulLinks } from "../../../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import type { EntryFieldTypes } from "contentful";
+
+
+const entries = await contentfulClient.getEntries<UsefulLinks>({
+  content_type: "usefulLinks",
+});
+
+const usefulLinks = entries.items.map((item) => {
+  const { title, hyperLink, type} = item.fields;
+  return {
+    title,
+    type,
+    hyperLink
+  };
+});
+
+
+---
+
+
+
+<div class="widget">
+      <h5 class="widget-title"><span>গুরুত্বপূর্ণ লিংকসমূহ</span></h5>
+<ul>
+      {usefulLinks.slice(0, 30).map((post) => {
+            // Check if item and its fields are defined before accessing them
+            if (post) {
+              return (
+              <li><a href={post.hyperLink} class="d-flex"> {post.title}
+               </a>
+            </li>
+         
+              );
+            } else {
+              // Handle the case where item or its fields are undefined
+              return null;
+            }
+          })}
+</ul>
+   </div>
+
+
+ <!-- categories -->
+ 
+ 

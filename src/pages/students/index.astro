@@ -1,0 +1,285 @@
+---
+interface Props {
+  
+}
+
+import Header from '../../components/UI/Global/Header.astro'
+import Footer from '../../components/UI/Global/Footer.astro'
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="https://bbhss.vercel.app" target="_blank" />
+    <meta charset="utf-8">
+    <title>Students</title>
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <meta name="description" content="This is meta description">
+    <meta name="author" content="Themefisher">
+
+    <!-- plugins -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFWJ0bbck.woff2" style="font-display: optional;">
+    <link rel="stylesheet" href="/plugins/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:600%7cOpen&#43;Sans&amp;display=swap" media="screen">
+
+    <link rel="stylesheet" href="/plugins/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="/plugins/slick/slick.css">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- JS Plugins -->
+    <script type="module" src="/plugins/jQuery/jquery.min.js"></script>
+    <script type="module" src="/plugins/bootstrap/bootstrap.min.js"></script>
+    <script type="module" src="/plugins/slick/slick.min.js"></script>
+
+    <!-- Main Script -->
+    <script type="module" src="/js/script.js"></script>
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+    <style>
+        /* Add your CSS styles here if needed */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        table {
+            width: 100%;
+            border: 2px solid #000;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        img {
+            max-width: 80px;
+            max-height: 80px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Style for alternating rows */
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Set specific column widths */
+        th:first-child,
+        td:first-child {
+            width: 5%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 10%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 15%;
+        }
+
+        th:nth-child(4),
+        td:nth-child(4) {
+            width: 15%;
+        }
+
+        th:nth-child(5),
+        td:nth-child(5) {
+            width: 15%;
+        }
+
+        th:nth-child(6),
+        td:nth-child(6) {
+            width: 5%;
+        }
+
+        th:nth-child(7),
+        td:nth-child(7) {
+            width: 5%;
+        }
+
+        th:nth-child(8),
+        td:nth-child(8) {
+            width: 5%;
+        }
+
+        th:nth-child(9),
+        td:nth-child(9) {
+            width: 5%;
+        }
+
+        th:nth-child(10),
+        td:nth-child(10) {
+            width: 10%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- navigation -->
+    <Header />
+    <!-- /navigation -->
+
+    <section class="section">
+        <div class="container">
+            <h4 id="notice">Students</h4>
+            <div class="notices note">
+                <ul class="list-unstyled widget-list">
+                    <label for="year">Select Year:</label>
+                    <select id="year">
+                        <!-- JavaScript will populate the year options -->
+                    </select>
+
+                    <label for="class">Select Class:</label>
+                    <select id="class">
+                        <!-- JavaScript will populate the class options -->
+                    </select>
+
+                    <label for="section">Select Section:</label>
+                    <select id="section">
+                        <option value="A">Section A</option>
+                        <option value="B">Section B</option>
+                        <!-- Add more section options as needed -->
+                    </select>
+
+                    <button id="fetchData">Fetch Data</button>
+
+                    <div id="result">
+                        <!-- Display fetched data here -->
+                    </div>
+
+                    <script>
+                        // Populate the year drop-down menu
+                        const yearDropdown = document.getElementById('year');
+                        const currentYear = new Date().getFullYear();
+                        for (let year = 2020; year <= currentYear; year++) {
+                            const option = document.createElement('option');
+                            option.value = year;
+                            option.textContent = year;
+                            yearDropdown.appendChild(option);
+                        }
+
+                        // Populate the class drop-down menu
+                        const classDropdown = document.getElementById('class');
+                        for (let classNum = 6; classNum <= 10; classNum++) {
+                            const option = document.createElement('option');
+                            option.value = classNum;
+                            option.textContent = `Class ${classNum}`;
+                            classDropdown.appendChild(option);
+                        }
+
+                        document.getElementById('fetchData').addEventListener('click', fetchData);
+
+                        function fetchData() {
+                            const yearValue = document.getElementById('year').value;
+                            const classValue = document.getElementById('class').value;
+                            const sectionValue = document.getElementById('section').value;
+
+                            // Construct the URL with the selected values
+                            const apiUrl = `https://cdn.contentful.com/spaces/31lakm8hkl1j/entries?access_token=aVy7YP6HzJqCxh5cxccTLT-IYJzwGjwn4gHleM2M91A&content_type=studentList&fields.year=${yearValue}&fields.classx=${classValue}&fields.section=${sectionValue}`;
+
+                            // Fetch data from the Contentful API
+                            fetch(apiUrl)
+                                .then(response => response.json())
+                                .then(data => {
+                                    // Handle the fetched data here
+                                    const resultElement = document.getElementById('result');
+                                    resultElement.innerHTML = '';
+
+                                    // Create a table
+                                    const table = document.createElement('table');
+
+                                    // Create table headers
+                                    const headers = ['ID', 'Photo', 'Name', "Father's Name", "Mother's Name", 'Class', 'Section', 'Roll', 'Sex', 'Date of Birth'];
+
+                                    const headerRow = document.createElement('tr');
+                                    headers.forEach(headerText => {
+                                        const th = document.createElement('th');
+                                        th.textContent = headerText;
+                                        headerRow.appendChild(th);
+                                    });
+                                    table.appendChild(headerRow);
+
+                                    // Populate the table with data
+                                    data.items.forEach(item => {
+                                        const row = document.createElement('tr');
+                                        const idCell = document.createElement('td');
+                                        
+                                        const classCell = document.createElement('td');
+                                        const sectionCell = document.createElement('td');
+                                        const dobCell = document.createElement('td');
+
+                                        // Extract data from Contentful item
+                                        idCell.textContent = item.fields.id;
+                                        // You'll need to adjust this to display the photo (e.g., an image element)
+                                        photoCell.innerHTML = `<img src="${item.fields.photo}" height="60" width="40" alt="${item.fields.name}" />`;
+                                        nameCell.textContent = `${item.fields.firstName} ${item.fields.lastName}`;
+                                        fathersNameCell.textContent = item.fields.fathersName;
+                                        mothersNameCell.textContent = item.fields.mothersName;
+                                        classCell.textContent = item.fields.classx;
+                                        sectionCell.textContent = item.fields.section;
+                                        rollCell.textContent = item.fields.roll;
+                                        sexCell.textContent = item.fields.sex;
+                                        dobCell.textContent = item.fields.dateOfBirth;
+
+                                        row.appendChild(idCell);
+                                        row.appendChild(photoCell);
+                                        row.appendChild(nameCell);
+                                        row.appendChild(fathersNameCell);
+                                        row.appendChild(mothersNameCell);
+                                        row.appendChild(classCell);
+                                        row.appendChild(sectionCell);
+                                        row.appendChild(rollCell);
+                                        row.appendChild(sexCell);
+                                        row.appendChild(dobCell);
+
+                                        table.appendChild(row);
+                                    });
+
+                                    resultElement.appendChild(table);
+                                })
+                                .catch(error => {
+                                    console.error('Error fetching data:', error);
+                                });
+                        }
+                    </script>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <Footer />
+</body>
+
+</html>

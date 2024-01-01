@@ -1,0 +1,66 @@
+---
+import { contentfulClient, type FooterLink } from '../../../lib/contentful';
+import { FooterLink } from '../../../lib/contentful';
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import type { EntryFieldTypes } from "contentful";
+
+
+
+interface Props {
+    
+}
+---
+
+<footer class="section-sm pb-0 border-top border-default">
+    <div class="container">
+       <div class="row justify-content-between">
+          <div class="col-md-3 mb-4">
+             <a class="mb-4 d-block" href="/">
+                <img class="img-fluid" height="70px" width="70px" src="images/logo.png" alt="LogBook">
+             </a>
+             <p>ভোগাইল বগাদি মাধ্যমিক বিদ্যালয় । <br/> 
+                  যোগাযোগঃ <b>contact@bhbss.edu.bd </b><br/>
+                  ফোনঃ ০১৭***********<br/>
+            </p>
+
+          </div>
+
+          <div class="col-lg-2 col-md-3 col-6 mb-4">
+             <h6 class="mb-4">কুইক লিঙ্ক</h6>
+             <ul class="list-unstyled footer-list">
+                <li><a href="/about-institution/about-school/">প্রতিষ্ঠান সম্পর্কে</a></li>
+                <li><a href="/other-info/contact/">যোগাযোগ</a></li>
+                <li><a href="/academic-info/vacation-list/">ছুটির তালিকা</a></li>
+                <li><a href="/about-institution/campus-map/">ক্যাম্পাস ম্যাপ</a></li>
+             </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-3 col-6 mb-4">
+             <h6 class="mb-4">সামাজিকযোগাযোগ মাধ্যমে</h6>
+             <ul class="list-unstyled footer-list">
+                <li><a href="https://www.facebook.com/bhogail.bagadi.high.school">ফেইসবুক</a></li>
+                <li><a href="#">টুইটার</a></li>
+                <li><a href="#">লিঙ্কডইন</a></li>
+                <li><a href="#">গিটহাব</a></li>
+             </ul>
+          </div>
+
+          <div class="col-md-3 mb-4">
+             <h6 class="mb-4">Subscribe Newsletter</h6>
+             <form class="subscription" action="javascript:void(0)" method="post">
+                <div class="position-relative">
+                   <i class="ti-email email-icon"></i>
+                   <input type="email" class="form-control" placeholder="Your Email Address">
+                </div>
+                <button class="btn btn-primary btn-block rounded" type="submit">Subscribe now</button>
+             </form>
+          </div>
+       </div>
+       <div class="scroll-top">
+          <a href="javascript:void(0);" id="scrollTop"><i class="ti-angle-up"></i></a>
+       </div>
+       <div class="text-center">
+          <p class="content">&copy; 2020 - Design &amp; Develop By <b> BosoniX Corporation</b> </p>
+       </div>
+    </div>
+ </footer>

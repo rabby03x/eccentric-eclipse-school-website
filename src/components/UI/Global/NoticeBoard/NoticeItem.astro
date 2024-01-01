@@ -1,0 +1,55 @@
+---
+import { contentfulClient, type NoticeItem } from "../../../../lib/contentful";
+
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import type { EntryFieldTypes } from "contentful";
+
+
+const entries = await contentfulClient.getEntries<NoticeItem>({
+  content_type: "noticeBoard",
+});
+
+const notice = entries.items.map((item) => {
+  const { title, thumbnail, content, slug, attachments } = item.fields;
+  return {
+    title,
+    content,
+    slug,
+    thumbnail,
+    attachments,
+    date: new Date(item.sys.createdAt).toLocaleDateString()
+  };
+});
+
+---
+
+    <ul class="list-unstyled widget-list">
+        {notice.slice(0, 10).map((post) => {
+            // Check if item and its fields are defined before accessing them
+            if (post && post.thumbnail && post.title) {
+              return (
+                <li class="media widget-post align-items-center">
+                  <a href={"/notices/"+post.slug+"/"}>
+                    <img
+                      loading="lazy"
+                      class="mr-3"
+                      src={post.thumbnail.fields.file.url}
+                    />
+                  </a>
+                  <div class="media-body">
+                    <h5 class="h6 mb-0">
+                      <a href={"/notices/"+post.slug+"/"}>{post.title}</a>
+                    </h5>
+                    <small>
+                      {post.date}
+                    </small>
+                  </div>
+                </li>
+              );
+            } else {
+              // Handle the case where item or its fields are undefined
+              return null;
+            }
+          })}
+          </ul>
+      

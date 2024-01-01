@@ -1,0 +1,99 @@
+---
+interface Props {
+    
+}
+import SliderNotice from './NoticeBoard/SliderNotice.astro';
+---
+
+
+<header class="sticky-top bg-white border-bottom border-default">
+    
+    <div class="container">
+        
+       <nav class="navbar navbar-expand-lg navbar-white">
+          <a class="navbar-brand" href="/">
+             <img class="img-fluid" height="70px" width="70px" src="/images/logo.png" alt="LogBook">
+          </a>
+          <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+             <i class="ti-menu"></i>
+          </button>
+ 
+          <div class="collapse navbar-collapse text-center" id="navigation">
+             <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                   <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                      aria-expanded="false">
+                      প্রতিষ্ঠান সম্পর্কিত <i class="ti-angle-down ml-1"></i>
+                   </a>
+                   <div class="dropdown-menu">
+                      <a class="dropdown-item" href="/about-institution/about-school/">প্রতিষ্ঠান সম্পর্কে</a>
+                      <a class="dropdown-item" href="/about-institution/about-building/">ভবন ও কক্ষ</a>
+                      <a class="dropdown-item" href="/about-institution/about-land/">ভূমির তথ্য</a>
+                      <a class="dropdown-item" href="/about-institution/campus-map/">ক্যাম্পাস ম্যাপ</a>
+                     
+                   </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                     aria-expanded="false">
+                     প্রশাসনিক তথ্য <i class="ti-angle-down ml-1"></i>
+                  </a>
+                  <div class="dropdown-menu">
+                     <a class="dropdown-item" href="/adminstration-info/list-of-headmasters/">প্রধান শিক্ষকের তালিকা</a>
+                     <a class="dropdown-item" href="/teachers/">শিক্ষক-শিক্ষিকাদের তালিকা</a>
+                     <a class="dropdown-item" href="/adminstration-info/workers/">কর্মচারীদের তালিকা</a>
+                     <a class="dropdown-item" href="/adminstration-info/committee/">কমিটি মেম্বার</a>
+                     <a class="dropdown-item" href="/adminstration-info/land-doner/">প্রতিষ্ঠাতা ও দানকারীর তথ্য</a>
+                  </div>
+               </li>
+               <li class="nav-item dropdown">
+                  <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                     aria-expanded="false">
+                     একাডেমিক তথ্য <i class="ti-angle-down ml-1"></i>
+                  </a>
+                  <div class="dropdown-menu">
+                     <a class="dropdown-item" href="/students/">শিক্ষার্থীদের তালিকা</a>
+                     <a class="dropdown-item" href="/notices/">নোটিশ বোর্ড</a>
+                     <a class="dropdown-item" href="/academic-info/syllabus/">সিলেবাস</a>
+                     <a class="dropdown-item" href="/academic-info/class-routine/">ক্লাশ রুটিন</a>
+                     <a class="dropdown-item" href="/academic-info/exam-routine/">পরিক্ষার রুটিন</a>
+                     <a class="dropdown-item" href="/academic-info/exam-seat-management/">পরীক্ষার আসন পরিকল্পনা</a>
+                     <a class="dropdown-item" href="/academic-info/exam-result/">পরীক্ষার ফলাফল</a>
+                     <a class="dropdown-item" href="/academic-info/board-exam-result/">বোর্ড পরীক্ষার ফলাফল</a>
+                     <a class="dropdown-item" href="/academic-info/vacation-list/">ছুটির তালিকা</a>
+                  </div>
+               </li>
+               <li class="nav-item dropdown">
+                  <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                     aria-expanded="false">
+                     ডাউনলোড <i class="ti-angle-down ml-1"></i>
+                  </a>
+                  <div class="dropdown-menu">
+                     <a class="dropdown-item" href="/downloads/book">বই</a>
+                     <a class="dropdown-item" href="/downloads/assignments">এসাইনমেন্ট</a>
+                     <a class="dropdown-item" href="/downloads/note">নোট</a>
+                     <a class="dropdown-item" href="/downloads/others">অন্যান্য</a>
+                    
+                  </div>
+               </li>
+                <li class="nav-item">
+                   <a class="nav-link" href="/other-info/contact/">যোগাযোগ</a>
+                </li>
+                <li class="nav-item dropdown">
+                   <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                      aria-expanded="false">লগইন <i class="ti-angle-down ml-1"></i>
+                   </a>
+                   <div class="dropdown-menu">
+                      <a class="dropdown-item" href="/login/">ড্যাশবোর্ড</a>
+                      <a class="dropdown-item" href="/signup/">নিবন্ধন</a>
+                   </div>
+                </li>
+             </ul>
+             
+ 
+          </div>
+       </nav>
+    </div>
+ </header>
+ <br/>
+ <SliderNotice/>

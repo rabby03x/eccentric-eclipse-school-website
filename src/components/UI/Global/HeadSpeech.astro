@@ -1,0 +1,50 @@
+---
+import { contentfulClient } from "../../../lib/contentful";
+import { SpeechOfHead } from "../../../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import type { EntryFieldTypes } from "contentful";
+
+
+const entries = await contentfulClient.getEntries<SpeechOfHead>({
+  content_type: "speechOfHead",
+});
+
+const notice = entries.items.map((item) => {
+  const { title, content, headPhoto} = item.fields;
+  return {
+    title,
+    content,
+    headPhoto
+  };
+});
+
+---
+
+    <ul class="list-unstyled widget-list">
+        {notice.slice(0, 7).map((post) => {
+            // Check if item and its fields are defined before accessing them
+            if (post) {
+              return (
+                <li class="media widget-post align-items-center">
+                    <img
+                      loading="lazy"
+                      class="mr-3"
+                      src={post.headPhoto.fields.file.url}
+                    />
+                  <div class="media-body">
+                    <h5 class="h6 mb-0">
+                      {post.title}
+                    </h5>
+                    <small>
+                        {post.content}    
+                    </small>
+                  </div>
+                </li>
+              );
+            } else {
+              // Handle the case where item or its fields are undefined
+              return null;
+            }
+          })}
+          </ul>
+      

@@ -1,0 +1,55 @@
+---
+import { TeacherItem, contentfulClient } from "../../../../lib/contentful";
+import { NoticeItem } from "../../../../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import type { EntryFieldTypes } from "contentful";
+
+
+const entries = await contentfulClient.getEntries<TeacherItem>({
+  content_type: "teacher",
+});
+
+const teacher = entries.items.map((item) => {
+  const { photo, firstName, lastName, email, phone, subject } = item.fields;
+  return {
+    photo,
+    firstName,
+    lastName,
+    email,
+    phone,
+    subject
+  };
+});
+
+---
+
+    <ul class="list-unstyled widget-list">
+        {teacher.map((post) => {
+            // Check if item and its fields are defined before accessing them
+            if (post && post.photo && post.firstName) {
+              return (
+                <li class="media widget-post align-items-center">
+                  <a href={"/teachers/"+post.slug+"/"}>
+                    <img
+                      loading="lazy"
+                      class="mr-3"
+                      src={post.photo.fields.file.url}
+                    />
+                  </a>
+                  <div class="media-body">
+                    <h5 class="h6 mb-0">
+                      <a href={"/teachers/"+post.firstName+"/"}>{post.firstName + " " + post.lastName}</a>
+                    </h5>
+                    <small>
+                      {post.email}
+                    </small>
+                  </div>
+                </li>
+              );
+            } else {
+              // Handle the case where item or its fields are undefined
+              return null;
+            }
+          })}
+          </ul>
+      

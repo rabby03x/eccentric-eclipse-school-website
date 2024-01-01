@@ -1,0 +1,115 @@
+---
+import { contentfulClient } from "../../../lib/contentful";
+import type { Downloads } from "../../../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+
+import Header from '../../../components/UI/Global/Header.astro'
+import Footer from '../../../components/UI/Global/Footer.astro'
+
+
+export async function getStaticPaths() {
+  const entries = await contentfulClient.getEntries<Downloads>({
+    content_type: "downloads",
+  });
+
+
+  const pages = entries.items.map((item) => ({
+    params: { slug: ''+item.fields.slug },
+    props: {
+      title: item.fields.title,
+	  slug: item.fields.slug,
+	  type: item.fields.type,
+	  fileLink: item.fields.fileLink
+    },
+  }));
+  return pages;
+}
+
+const {title, slug, type, fileLink} = Astro.props;
+---
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html lang="en-us">
+
+<head>
+	<base href="https://bbhss.vercel.app" target="_blank"/>
+   <meta charset="utf-8">
+   <title>{title}</title>
+
+   <!-- mobile responsive meta -->
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+   <meta name="description" content="This is meta description">
+   <meta name="author" content="Themefisher">
+
+   <!-- plugins -->
+   <link rel="preload" href="https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFWJ0bbck.woff2" style="font-display: optional;">
+   <link rel="stylesheet" href="/plugins/bootstrap/bootstrap.min.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:600%7cOpen&#43;Sans&amp;display=swap" media="screen">
+
+   <link rel="stylesheet" href="/plugins/themify-icons/themify-icons.css">
+   <link rel="stylesheet" href="/plugins/slick/slick.css">
+
+   <!-- Main Stylesheet -->
+   <link rel="stylesheet" href="/css/style.css">
+
+	
+				   <!-- JS Plugins -->
+				   <script type="module" src="/plugins/jQuery/jquery.min.js"></script>
+				   <script type="module" src="/plugins/bootstrap/bootstrap.min.js"></script>
+				   <script type="module" src="/plugins/slick/slick.min.js"></script>
+				
+				   <!-- Main Script -->
+				   <script type="module" src="/js/script.js"></script>
+   <!--Favicon-->
+   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+   <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+<!-- navigation -->
+<Header/>
+<!-- /navigation -->
+
+<section class="section">
+	<div class="container">
+		<article class="row mb-4">
+			<div class="col-lg-4 mx-auto">
+				<div class="post-slider">
+				</div>
+			</div>
+			<div class="col-lg-10 mx-auto">
+				<div>
+					<h5 class="widget-title"><span>File Details</span></h5>
+					{fileLink && fileLink.length > 0 ? (
+					  <ul>
+						{fileLink.map((attachment, index) => (
+						  <li key={index}>
+							<a href={attachment.fields.file.url} download>
+							  Download Attachment {index + 1}
+							</a>
+							({attachment.fields.file.fileName})
+						  </li>
+						))}
+					  </ul>
+					) : (
+					  <p>Attachments Not Found</p>
+					)}
+				  </div>
+				  
+				  
+			
+		</article>
+	</div>
+</section>
+
+<Footer/>
+
+</body>
+</html>

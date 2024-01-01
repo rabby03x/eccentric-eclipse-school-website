@@ -1,0 +1,49 @@
+---
+interface Props {
+    
+}
+import { date } from 'astro/zod';
+import { Events } from '../../../../lib/contentful';
+import { contentfulClient } from '../../../../lib/contentful';
+
+const entries = await contentfulClient.getEntries<Events>({
+    content_type: "events",
+  });
+  
+  const blogItem = entries.items.map((item) => {
+    const {title, thumbnail, content, slug, date} = item.fields;
+    return {
+        title,
+        thumbnail,
+        content,
+        slug,
+        date: new Date(item.sys.createdAt).toLocaleDateString()
+        
+    };
+  });
+
+
+
+---
+<article class="row mb-5">
+    <div class="col-12 mx-auto">
+        {blogItem.slice(0, 20).map((event) => {
+            // Check if item and its fields are defined before accessing them
+            if (event) {
+              return (
+              <h5><a class="post-title" href={'/event/'+event.slug}>{event.title}</a></h5>
+        <ul class="list-inline post-meta mb-4">
+        </ul>
+        <p>{event.content}</p> <br/> <a href={'/event/'+event.slug} class="btn btn-outline-primary">পড়া চালিয়ে যান</a>
+              );
+            } else {
+              // Handle the case where item or its fields are undefined
+              return null;
+            }
+          })}
+    </div>
+    
+</article>
+
+<br/>
+<br/>
